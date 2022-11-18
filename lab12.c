@@ -2,7 +2,7 @@
 
 int Pow(int a, int b) {
 	int res = 1;
-	for(int i = 0; i < b; i++) {
+	for (int i = 0; i < b; i++) {
 		res *= a;
 	}
 	return res;
@@ -13,10 +13,10 @@ int main() {
 	
 	scanf("%d", &n);
 
-	while(n % w != n) {
+	while (n % w != n) {
 		w *= 10;
 		digs++;
-		if(n % (z*10) == 0) {
+		if (n % (z*10) == 0) {
 			z *= 10;	
 			zeros++;
 		}
