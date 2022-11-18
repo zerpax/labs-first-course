@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-int Pow(int a, int b){
+int Pow(int a, int b) {
 	int res = 1;
-	for(int i = 0; i < b; i++){
+	for(int i = 0; i < b; i++) {
 		res *= a;
 	}
 	return res;
 }
 
-int main(){
+int main() {
 	int n, w = 1, z = 1, zeros = 0, digs = 0;
 	
 	scanf("%d", &n);
