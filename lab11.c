@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(){ 
+int main() { 
 	int c = getchar();
 	int shift = 1;
 	
