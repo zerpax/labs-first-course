@@ -12,12 +12,12 @@ int main(){
 		} else if (c == '\n') {
 			m[row][col] = num;
 			if (col == row) {
-				for (int i = 0; i <= row*2; ++i) {
+				for (int i = 0; i <= row * 2; ++i) {
 					for (int j = i < row ? i : row; j >= 0 && j >= i - row; --j) {
 						if (i % 2 == 0) {
-							printf("%d ", m[row-(i-j)][j]);					
+							printf("%d ", m[row - (i - j)][j]);					
 						} else {
-							printf("%d ", m[row-j][i-j]);
+							printf("%d ", m[row - j][i - j]);
 						}
 					}
 				}
@@ -27,7 +27,7 @@ int main(){
 			col = 0;
 			num = 0;
 		} else {
-			num = num * 10 + ((int)c-48);
+			num = num * 10 + ((int)c - 48);
 		}
 		c = getchar();
 		}
