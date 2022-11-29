@@ -21,7 +21,7 @@ int main(){
 						}
 					}
 				}
-			row = 0;
+				row = 0;
 			}	
 			++row;
 			col = 0;
@@ -30,5 +30,5 @@ int main(){
 			num = num * 10 + ((int)c - 48);
 		}
 		c = getchar();
-		}
+	}
 }
