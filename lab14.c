@@ -21,7 +21,8 @@ int main(){
 						}
 					}
 				}
-				row = 0;
+				row =-1;
+				printf("\n");
 			}	
 			++row;
 			col = 0;
