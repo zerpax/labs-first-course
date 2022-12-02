@@ -16,7 +16,7 @@ int main(){
 				++row;
 				for (int i = 0; i < row; ++i) { 		
 					for (int j = 0; j < row; ++j) {
-						printf("%d ", m[(i+j+1)%row][j]);
+						printf("%d ", m[i][(j + 110) % row]);
 					}
 					printf("\n");
 				}
