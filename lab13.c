@@ -23,7 +23,7 @@ int main() {
 			c = getchar();
 			s = IsVowel(c); 
 		}	
-		if (c == '\n') {
+		if (c == '\n' || c == EOF) {
 			s = s & IsVowel(prev);
 			check = s | check;	
 			if (check) {                
@@ -31,6 +31,10 @@ int main() {
 			} else {
 				printf("No\n");            
 			}
+			check = false;
+			c = getchar();
+			prev = c;
+			s = IsVowel(c);
 		}
 		prev = c;
 		c = getchar();
