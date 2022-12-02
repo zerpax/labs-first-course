@@ -6,9 +6,10 @@ int main(){
 	int row = 0, col = 0, num = 0, sign = 1;
 	while (c != EOF) {
 		if (c == ' ') {
-			m[row][col] = num;
+			m[row][col] = num * sign;
 			++col;
 			num = 0;
+			sign = 1;
 		} else if (c == '\n') {
 			m[row][col] = num * sign;
 			if (col == row) {
