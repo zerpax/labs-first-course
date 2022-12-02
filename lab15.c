@@ -3,14 +3,14 @@
 int main(){
 	char c = getchar();
 	int m[8][8];
-	int row = 0, col = 0, num = 0;
+	int row = 0, col = 0, num = 0, sign = 1;
 	while (c != EOF) {
 		if (c == ' ') {
 			m[row][col] = num;
 			++col;
 			num = 0;
 		} else if (c == '\n') {
-			m[row][col] = num;
+			m[row][col] = num * sign;
 			if (col == row) {
 				++row;
 				for (int i = 0; i < row; ++i) { 		
@@ -24,6 +24,9 @@ int main(){
 			++row;
 			col = 0;
 			num = 0;
+			sign = 1;
+		} else if (c == '-') {
+			sign = -1;
 		} else {
 			num = num * 10 + ((int)c - 48);
 		}
