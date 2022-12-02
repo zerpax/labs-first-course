@@ -9,19 +9,27 @@ int Pow(int a, int b) {
 	return res;
 }
 
-long long Shift(long long n) {
-    long long w = 1, z = 1;
-    int zeros = 0, digs = 0;
-    while (n % w != n) {
-	    w *= 10;
-	    digs++;
-	    if (n % (z*10) == 0) {
-		    z *= 10;	
-    		    zeros++;
-	    }
-    }	
-    long long half = Pow(10, (digs - zeros) / 2);
-    n = (n - n % (z * half) + (n / z % half));
+long long Shift(long long n, int digs) {
+    long long w = 1, z = 1, copy = n;
+    int zeros = 0;
+    int bot = 0, count = 1, bc = 1;    
+    
+    while (copy % 10 != 0 && count * 2 <= digs){
+        bot = bot + copy % 10 * bc;   
+        copy /= 10;
+        ++count;
+        bc *= 10;
+    }
+    if ((count - 1) * 2 <= digs){
+        while (copy % 10 == 0 && count * 2 <= digs) {
+	        copy /= 10;
+            ++zeros;
+            ++count;
+        }
+        n = (n - bot) / Pow(10, zeros) + bot;
+    }
+    bot = (n % Pow(10, digs / 2));
+    n = (n - bot) * Pow(10, zeros) + bot;
     return n;
 }
 
@@ -29,7 +37,7 @@ long long Shift(long long n) {
 
 int main() {
 	long long n = 0;
-	int sign = 1;	
+	int sign = 1, digs = 0;	
 	char c;
 	c = getchar();
 	if (c == '-') {
@@ -38,15 +46,17 @@ int main() {
 	}
 	while (c != EOF) {
 		if (c == '\n') {
-			n = Shift(n);
+			n = Shift(n, digs);
 			n *= sign;
 			printf("%lld\n", n);
 			n = 0;
+            digs = 0;
 		} else if (c == '-') {
 			sign = -1;
 		} else {
 			n *= 10;
 			n += (int)(c - '0');
+            ++digs;
 		} 
 		c = getchar();
 	}
