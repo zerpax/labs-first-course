@@ -31,7 +31,7 @@ int main(){
 			sign = 1;
 		} else if (c == '-') {
 			sign = -1;
-		}else {
+		} else {
 			num = num * 10 + ((int)c - 48);
 		}
 		c = getchar();
