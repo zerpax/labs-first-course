@@ -20,8 +20,31 @@ long double Abs(long double a){
 }
 
 int main(){
+	long double eps = MachineEpsilon();
+	for (int i = 0; i < 76; i++) {
+		printf("-");
+	}
+	printf("\n");
+	printf("| x");
+	for (int i = 2; i < 7; i++) {
+		printf(" ");
+	}
+	printf("| част. сумма ряда");
+	for (int i = 17; i < 24; i++) {
+		printf(" ");
+	}
+	printf("| значение функции");
+	for (int i = 17; i < 24; i++) {
+		printf(" ");
+	}
+	printf("| число итераций |\n");
+	for (int i = 0; i < 76; i++) {
+		printf("-");
+	}
+	printf("\n");
+
 	long double e = MachineEpsilon();
-	for (double x = START; x <= END; x += STEP) {
+	for (long double x = START; x <= END; x += STEP) {
 		long double taylor = 0;
 		long double xn = x;
 		long double fact = 1;
@@ -36,8 +59,16 @@ int main(){
 			elem = sign * xn * (n - 1) / fact;
 			it++;
 		}
-		double bi = (1 + x) * exp(-1*x);
-		printf("%Lf %f %d\n", taylor, bi, it);
+		long double bi = (1 + x) * exp(-1*x);
+		printf("| %.3Lf | %.20Lf | %.20Lf | %d", x, taylor, bi, it);
+		for (int i = log10(it); i < 14; ++i) {
+			printf(" ");
+		}
+		printf("|\n");
+	}
+	for (int i = 0; i < 76; i++) {
+	printf("-");
+
 	}
 }
 
