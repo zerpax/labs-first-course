@@ -20,25 +20,25 @@ long double Abs(long double a){
 }
 
 int main(){
-	long double eps = MachineEpsilon();
-	for (int i = 0; i < 76; i++) {
+
+	for (int i = 0; i < 76; ++i) {
 		printf("-");
 	}
 	printf("\n");
 	printf("| x");
-	for (int i = 2; i < 7; i++) {
+	for (int i = 0; i < 5; ++i) {
 		printf(" ");
 	}
 	printf("| част. сумма ряда");
-	for (int i = 17; i < 24; i++) {
+	for (int i = 0; i < 7; ++i) {
 		printf(" ");
 	}
 	printf("| значение функции");
-	for (int i = 17; i < 24; i++) {
-		printf(" ");
+	for (int i = 0; i < 7; ++i) {
+	       printf(" ");
 	}
 	printf("| число итераций |\n");
-	for (int i = 0; i < 76; i++) {
+	for (int i = 0; i < 76; ++i) {
 		printf("-");
 	}
 	printf("\n");
@@ -59,16 +59,15 @@ int main(){
 			elem = sign * xn * (n - 1) / fact;
 			it++;
 		}
-		long double bi = (1 + x) * exp(-1*x);
+		long double bi = (1 + x) * exp(-1 * x);
 		printf("| %.3Lf | %.20Lf | %.20Lf | %d", x, taylor, bi, it);
 		for (int i = log10(it); i < 14; ++i) {
 			printf(" ");
 		}
 		printf("|\n");
 	}
-	for (int i = 0; i < 76; i++) {
-	printf("-");
-
+	for (int i = 0; i < 76; ++i) {
+		printf("-");
 	}
 }
 
