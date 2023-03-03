@@ -1,0 +1,77 @@
+\documentclass{book}
+\usepackage[paperheight=215mm, paperwidth=145mm, top=15mm, bottom=12mm, right=7mm, left=7mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[symbol]{footmisc}
+
+\addtolength{\skip\footins}{-1mm}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+
+\fontfamily{lh}
+\selectfont
+
+
+\makeatletter
+\g@addto@macro \normalsize {%
+ \setlength\abovedisplayskip{1mm}%
+ \setlength\belowdisplayskip{1mm}%
+}
+\makeatother
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setcounter{page}{132}
+
+\fancyhead{}
+\fancyhead[LE]{\thepage}
+\fancyhead[RO]{\thepage}
+\fancyhead[CE]{\textit{Гл 2. Предел и непрерывность функции}}
+\fancyhead[CO]{\textit{\textsection8. Предел посдедовательности}}
+\fancyfoot{}
+\fancyfoot[LE]{}
+
+
+
+\begin{document}
+
+\noindentТак как 
+\[\lim_{n \to \infty} \left(\frac{4}{n}(a - 1)^2\right) = 0,\]
+то и
+\[\lim_{n \to \infty} \left(\frac{n}{a^n}\right) = 0 \quad \blacktriangle\]
+\indent П р и м е р 12. Пусть $a > 1$. Доказать , что $\lim\limits_{n \to \infty} \dfrac{\log_a n}{n} = 0.$ \\
+\indent$\blacktriangle$ Для доказательства воспользуемся определением предела и результатом предыдущего примера.\\
+\indentПусть $\varepsilon > 0$. На множестве натуральных чисел $n$ неравенство \[\frac{\log_a n}{n} < \varepsilon\]равносильно неравенству $n < (a^\varepsilon)^n$. Поскольку $a^\varepsilon > 1$, имеем \[\lim_{n \to \infty} \frac{n}{(a^\varepsilon)^n} = 0,\] поэтому существует натуральное $N$, такое, что для всех $n \\geqslant N$ \[\frac{n}{(a^\varepsilon)^n}<1,\] т.е. $n < a^{\varepsilonn}$ Отсюда следует, что для всех $n \geqslant N$ \[0 \leqslant \frac{\log_a n}{n} < \varepsilon;\] это означает, что \[\lim_{n \to \infty} \frac{\log_a n}{n} = 0 \quad \blacktriangle\]
+\indentТаким образом, из трех последовательостей $\{a^n\}, \{n\}, \{\log_a n\}, a > 1$, превая возрастает существено быстрее других, а третья  медленнее других.\\
+\indentП р и м е р 13. Доказать, что $\lim\limits_{n \to \infty} \dfrac{2^n}{n!} = 0.$ \\
+\indent$\blacktriangle$ Если $k \geqslant 4$, то $2/k \leqslant 1/2$, поэтому при $n \geqslant 4$ \[0 < \frac{2^n}{n!} = \frac{8}{1\quad2\quad3} \cdot \frac{2\quad\quad}{4\quad\quad n} \leqslant \frac{4}{3} \left(\frac{1}{2} \right) ^{n-3} = \frac{32}{3} \left( \frac{1}{2} \right) ^n.\]
+Так как $\lim\limits_{n \to \infty} \dfrac{32}{3} \left( \dfrac{1}{2} \right) ^n = 0)$, то и $\lim\limits_{n \to  \infty} \dfrac{2^n}{n!} = 0$ \quad $\blacktriangle$ \\
+
+\indent П р и м е р 14. Доказать, что $\lim\limits_{n \to \infty} \sqrt{n} = +\infty.$ \\
+
+\indent $\blacktriangle$ Пусть $\varepsilon$ - произвольное положительне число, а $N$ - такое натуральное число, что $N>\varepsilon^2$ \footnote[1]{)Например, $N = E(\varepsilon^2)+1$}). Тогда для всех $n \geqslant N$ верно неравенство $\sqrt{n} \geqslant \sqrt{N} > \varepsilon$. Это и означает, что $\lim\limits_{n \to \infty} \sqrt{n} = +\infty. \quad \blacktriangle$ \\
+
+\indent П р и м е р 15. Доказать, что всякая неограниченная последовательность имеет частичный предел, равный либо +\infty, либо - \infty. \\
+\indent $\blacktriangle$ Неогранниченная последоватеьность непременно неограниченна либо сверху, либо снизу.\\
+\indent Пусть последовательность $\{x_n\}$ неограниченная снизу. Это означает, что для любого $\varepsilon > 0$ найдется член послеловательности $x_n$ такой, что $x_n < -\varepsilon$. Для $varepsilon = 1$ найдется член послеловательности. Среди конечного числа членов последовательности $x_{n_1}$ такой, что $x_{n_1}< -1$, его и примем за первый член подпослеловательности. Среди конечного числа членов последовательности с номерами от 1 до $n_1$ имеется наименьший, его обозначим $m_1$. Возьмем теперь $\varepsilon = 2$. Из неогранниченности последовательности снизу следует, что найдетсячлен $x_{n_2}$ такой, что $x_{n_2}<-2$ и $x_{n_2}<m_1$. Последнее в силу выбора $m_1$ означает, что $n_2 > n_1$. Примем $x_{n_2}$ за второй член подпоследовательности. Аналогично  будем находить члены подпоследовательности $x_{n_3}$ и т.д. \\
+\indent Докажем, что этот процесс не оборвется. Допустим, что найден член подпоследовательности $x_{n_k}$, $k \geqslant 2$, удовлетворяющий неравенству $x_{n_k} < -k$. Обозначим через $m_k$ наименьший среди членов последовательности от $x_1$ до $x_{n_k}$. Возьмем $\varepsilon = k + 1$. В силу неограниченности снизу найдется член последовательности $x_{n_{k+1}}$ такой, что $x_{n_{k+1}} < -(k+1)$ и $x_{n_{k+1}}< m_k$. Из последнего следует, что $n_{k+1}>n_k$, и, значит, $x_{n{k+1}}$ можно принять за $(k+1)$-й член подпоследовательности. \\
+\indent Таким образом, существует подпоследовательность $\{x_{n_k}\}$ такая, что $x_{n_k} < -k$ для любого k, и, значит,
+\[\lim{k \to \infty} x_{n_k} = -\infty.\]
+\indent Аналогично доказывается, что последовательность, неограниченная сверху, имеет подпоследовательность,  пределом которй служит +$\infty. \blacktriangle$ \\
+\indent П р и м е р 16. Для последовательности 
+\[x_n = \frac{(3\cos{(\pi n/2)}-1)+1}{n}, \quad n \in N,\]
+найти множество частичных пределов $\overline{\lim\limits_{x \to \infty}}x_n$ и $\underline{\lim\limits_{x_n}}$, а также $\sup\{x_n\}$ и $\inf\{x_n\}$. \\
+\indent $\blacktriangle$ При $n = 4k$ имеем \[x_n = \frac{2n+1}{n}=2+\frac{1}{n}\],
+и, значит, $\lim\limits_{k \to \innfty} x_{4k} = 2, 2 < x_{4k} \leqslant 2+1/4$, причем $x_4=9/4$. При $n= 4k+1$ или $n=4k+3$ имеем \[x_n=\frac{-n+1}{n}=-1+\frac{1}{n},\]
+и, значит, $-1 < x_n < 0, \lim\limits_{k \to \infty} x_{4k+1} = \lim\limits_{k \to \infty}x_{4k+1}=-1.$ При $nn = 4k +2$ имеем
+\[x_n=\frac{-n+1}{n}=-1+\frac{1}{n},\]
+и значит, $-1 < x_n < 0, \lim\limits_{k \to \infty}=\lim\limits_{k \to \infty} x_4k+3=-1.$ При $n=4k+2$ имеем 
+\[x_n=\frac{-4n+1}{n}=-4+\frac{1}{n},\]
+значит, $-4<x_n<0, \lim\limits_{n \to  \infty} x_{4k+2}=-4.$
+
+\end{document}https://www.overleaf.com/project/63f8ba4307db6e2cd880f397
