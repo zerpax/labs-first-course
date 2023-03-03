@@ -6,11 +6,16 @@ for file in folder/*; do
 	if (($(stat -c%s $file) < $size))
 	then
 		name=$(basename $file)
-		f3=${name:0:3}
-		mv "$file" "${file%.*}.$f3"  	
+		nosuff=${name%.*}
+		len=$((${#name}-${#nosuff}-1))
+		f3=${name:0:len}
+		new=${file%.*}.$f3
+		mv "$file" "$new"  	
+		echo "file name changed from $name to $new"
 	else
-		echo "big"
+		echo "file $file is too big to rename"
 	fi
 		
 done
+
 
