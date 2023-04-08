@@ -206,7 +206,6 @@ int main(){
 		Push(output, Top(stack));
 		Pop(stack);
 	}
-	StackPrint(output);
 	StackToTree(output, tree);
 	TreePrint(tree, 1);
 	printf("-------------------------------------\n");
