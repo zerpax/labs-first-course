@@ -71,51 +71,79 @@ void TreePrint(struct Tree *tree, int depth) {
 	}
 }	
 
-bool Search(struct Tree* tree, char value){
+bool Equal(struct Tree* tree, struct Tree* comp_tree) {
+        bool left = true, right = true;
+        if (tree -> left != NULL && comp_tree -> left != NULL) {
+                left = Equal(tree -> left, comp_tree -> left);
+        }
+        if (tree -> right != NULL && comp_tree -> right != NULL) {
+                right = Equal(tree -> right, comp_tree -> right);
+        }
+        //printf("%c %c\n", tree -> value, comp_tree -> value);
+        return (tree -> value == comp_tree -> value) & left & right;
+}
+
+void Delete(struct Tree* tree) {
 	if (tree -> left != NULL) {
-	        if (tree -> left -> value == value) {
-			free(tree -> left);
+                Delete(tree -> left);
+        }
+        if (tree -> right != NULL) {
+                Delete(tree -> right);
+        }
+	free(tree);
+}
+
+bool Search(struct Tree* comp_tree, struct Tree* tree){
+	//TreePrint(tree -> left, 1);
+	//TreePrint(comp_tree, 1);
+	//printf("-------------------------------------\n");
+	if (tree -> left != NULL && tree -> value != '+' && tree -> value != '-') {
+	        if (Equal(tree -> left, comp_tree)) {
+			//TreePrint(comp_tree, 1);
+			//TreePrint(tree, 1);
+			Delete(tree -> left);
 			tree -> left = NULL;
-			
+
 			struct Tree* temp = tree -> right;
 			tree -> value = temp -> value;
 			tree -> right = temp -> right;
 			tree -> left = temp -> left;
 			free(temp);
 			return true;
+		
 		}
-		else {
-			if(Search(tree -> left, value)) {
-				return true;
-			}
+		else if(Search(comp_tree, tree -> left)) {
+			return true;
 		}
 	}
-	if (tree -> right != NULL) {
-		if (tree -> right -> value == value) {
-			free(tree -> right);
+	if (tree -> right != NULL && tree -> value != '+' && tree -> value != '-') {
+	//	TreePrint(comp_tree, 1);
+		if (Equal(tree -> right, comp_tree)) {
+			Delete(tree -> right);
 			tree -> right = NULL;
 
 			struct Tree* temp = tree -> left;
-                        tree -> value = temp -> value;
-                        tree -> right = temp -> right;
-                        tree -> left = temp -> left;
-                        free(temp);
+			tree -> value = temp -> value;
+			tree -> right = temp -> right;
+			tree -> left = temp -> left;
+			free(temp);
 			return true;
 		}
-		else { 
-			if(Search(tree -> right, value)) {
+		else if(Search(comp_tree, tree -> right)) {
 				return true;
-			}
-			
         	}
 	}
 	return false;
+
 }
 
 void Compare(struct Tree* tree, struct Tree* comp_tree) {
-	if (tree -> left != NULL) {
-                if (isdigit(tree -> left -> value) && Search(comp_tree, tree -> left -> value)) {
-                        free(tree -> left);
+		
+	//TreePrint(tree -> right, 1);
+	//printf("%d, %c  ",tree -> left != NULL && tree -> value != '/', tree -> value);
+	if (tree -> left != NULL && tree -> value != '+' && tree -> value != '-') {
+                if (Search(tree -> left, comp_tree)) {
+                        Delete(tree -> left);
                         tree -> left = NULL;
 
                         struct Tree* temp = tree -> right;
@@ -129,9 +157,9 @@ void Compare(struct Tree* tree, struct Tree* comp_tree) {
                         Compare(tree -> left, comp_tree);
                 }
         }
-        if (tree -> right != NULL) {
-                if (isdigit(tree -> right -> value) && Search(comp_tree, tree -> right -> value)) {
-                        free(tree -> right);
+        if (tree -> right != NULL && tree -> value != '+' && tree -> value != '-') {
+                if (Search(tree -> right, comp_tree)) {
+                        Delete(tree -> right);
                         tree -> right = NULL;
 
                         struct Tree* temp = tree -> left;
@@ -148,21 +176,43 @@ void Compare(struct Tree* tree, struct Tree* comp_tree) {
 }
 
 void Reduce(struct Tree* tree) {
-	struct Tree* left = tree -> left;
 	struct Tree* right = tree -> right;
+	struct Tree* left = tree -> left;
+	if (Search(right, left)) {
+		right -> value = '1';
+		free(right -> right);
+		free(right -> left);
+		right -> right = NULL;
+		right -> left = NULL;
+	}
+	if (Search(left, right)) {
+                left -> value = '1';
+		free(left -> right);
+		free(left -> left);
+                left -> right = NULL;
+                left -> left = NULL;
+        }
+
+	if (Equal(left, right)) {
+		tree -> value = '1';
+		tree -> right = NULL;
+		tree -> left = NULL;
+	}
 	Compare(left, right);
-	if (isdigit(left -> value) && Search(right, left -> value)) {
-		left -> value = '1';
-	}
-	if (isdigit(right -> value) && Search(left, right -> value)) {
-		right -> value = '1';
-	}
-	if (isdigit(right -> value) && isdigit(left -> value) && right -> value == left -> value) {
-		right -> value = '1';
-		left -> value = '1';
-	}
 }
 
+
+void DivCheck(struct Tree* tree){
+	if (tree -> left != NULL) {
+		DivCheck(tree -> left);
+	}
+	if (tree -> value == '/') {
+		Reduce(tree);
+	}
+	if (tree -> right != NULL) {
+		DivCheck(tree -> right);
+	}
+}
 
 
 int main(){
@@ -191,7 +241,7 @@ int main(){
 			Push(stack, c);
 		}
 		else if (c == '+' || c == '-') {
-			while (Top(stack ) == '*' || Top(stack) == '/') {
+			while (stack -> top != NULL && Top(stack) != '(' && (Top(stack) == '*' || Top(stack) == '/')) {
 				Push(output, Top(stack));
 				Pop(stack);
 			}
@@ -206,10 +256,11 @@ int main(){
 		Push(output, Top(stack));
 		Pop(stack);
 	}
+	
 	StackToTree(output, tree);
 	TreePrint(tree, 1);
 	printf("-------------------------------------\n");
-	Reduce(tree);
+	DivCheck(tree);
 	TreePrint(tree, 1);
-	
+	//printf("%d", Equal(tree -> left, tree -> right));
 }
