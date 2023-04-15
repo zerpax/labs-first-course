@@ -11,10 +11,6 @@ int readperson(person *p) {
 int main(int argc, char* argv[]) {
 	person p;
 	FILE *out = fopen(argv[1], "wb");
-	if (!out) {
-		perror("Can't open file");
-	return 2;
-	}
 	
 	while (readperson(&p)) {
 		fwrite(&p, sizeof(p), 1, out);
