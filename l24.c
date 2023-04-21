@@ -214,6 +214,21 @@ void DivCheck(struct Tree* tree){
 	}
 }
 
+void Print(struct Tree *tree) {
+	if (!isdigit(tree -> value)) {
+		printf("(");
+	}
+	if (tree -> left != NULL) {
+                Print(tree -> left);
+        }
+        printf("%c", tree -> value);
+        if (tree -> right != NULL) {
+                Print(tree -> right);
+        }
+	if (!isdigit(tree -> value)) {
+                printf(")");
+        }
+}
 
 int main(){
 	struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
@@ -262,5 +277,6 @@ int main(){
 	printf("-------------------------------------\n");
 	DivCheck(tree);
 	TreePrint(tree, 1);
+	Print(tree);
 	//printf("%d", Equal(tree -> left, tree -> right));
 }
