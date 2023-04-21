@@ -2,6 +2,53 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+void Print (int *matrix, int count, int size) {
+	int row, col;
+	int prow = 1, pcol = 1;
+	for (int i = 0; i < count; i+=2) {
+		if (matrix[i] == 0) {
+			while (matrix[i + 1] == 0) {
+					i++;
+			}
+			row = matrix[i + 1];
+		}
+		else {
+			col = matrix[i];
+			//printf("|%d, %d|", row, col);
+			while (prow != row || pcol != col) {
+
+				printf("0 ");
+				pcol++;
+				if (pcol == size) {
+					printf("\n");
+					pcol = 1;
+					prow++;
+				}
+				
+			}
+			printf("%d ", matrix[i + 1]);
+			if (pcol == size) {
+					printf("\n");
+			}
+			pcol++;
+			if (pcol == size) {
+				printf("\n");
+				pcol = 1;
+				prow++;
+			}
+		}
+	}
+
+	while (prow != size) {
+		printf("0 ");
+		pcol++;
+		if (pcol == size) {
+			printf("\n");
+			pcol = 1;
+			prow++;
+		}
+	}
+}
 
 int main() {
 	char c;
@@ -21,7 +68,7 @@ int main() {
 			num[dig] = c;
 			dig++;
 		}
-		if (c == ' ' || c == '\n') {
+		if (c == ' ') {
 			elem = atoi(num);
 			//printf("%d ", elem);
 			if (elem != 0) {
@@ -38,23 +85,29 @@ int main() {
 			col++;
 		}
 		if (c == '\n') {	
-				count++;
-				matrix[count] = 0;		
+				if (matrix[count] != 0) {
+					count++;
+					matrix[count] = 0;
+				}		
 			col = 1;
 			row++;
 		}
 		c = getchar();
 	}
 	matrix[count] = 0;
+	count++;
+	matrix[count] = 0;
 
-	for (int i = 0; i < count; i++) {
+	for (int i = 0; i <= count; i++) {
 		printf("%d ", matrix[i]);
 		if (matrix[i] == 0) {
 			printf("\n");
 		}
 	}
-	printf("\n");
-	
+	printf("-----------------------------------\n");
+	Print(matrix, count, row);
+	printf("\n-----------------------------------\n");
+
 	int trans[1000];
 	trans[0] = 0;
 	int tr_count = 0;
@@ -62,8 +115,6 @@ int main() {
 	row = -1;
 	for (int i = 0; i < size; i++) {
 		for (int j = count - 1; j >= 0; j -= 2) {
-
-			
 
 			if (matrix[j] == 0) {
 				if (j != count - 1) {
@@ -76,10 +127,10 @@ int main() {
 						if (size - col == i) {
 							if (trans[tr_count] == 0) {
 								tr_count++;
-								trans[tr_count] = i - 1;
+								trans[tr_count] = i;
 							}
 							tr_count++;
-							trans[tr_count] = size - row - 1;
+							trans[tr_count] = size - row;
 							tr_count++;
 							trans[tr_count] = matrix[k + 1];
 						}
@@ -92,33 +143,10 @@ int main() {
 			}
 		}
 		
-
-
-
-		/*for (int j = 0; j < count; j += 2) {
-			col = matrix[j];
-			if (matrix[j] == 0) {
-				while (matrix[j + 1] == 0) {
-						j++;
-					}
-					row = matrix[j + 1];
-			}
-			
-			else if (size - col == i) {
-				if (trans[tr_count] == 0) {
-					tr_count++;
-					trans[tr_count] = i - 1;
-				}
-				tr_count++;
-				trans[tr_count] = size - row - 1;
-				tr_count++;
-				trans[tr_count] = matrix[j + 1];
-			}
-
-		}*/
 		if (trans[tr_count] != 0) {
 			tr_count++;
 			trans[tr_count] = 0;
+
 		}
 	}
 	tr_count++;
@@ -131,5 +159,6 @@ int main() {
 			printf("\n");
 		}
         }
-
+	printf("-----------------------------------\n");
+	Print(trans, tr_count, size);
 }
